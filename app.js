@@ -87,7 +87,7 @@ app.get("/auth/google",
   passport.authenticate('google', { scope:["profile" ] })
 );
 
-app.get("/auth/google/secrets",
+app.get('/auth/google/secrets',
   passport.authenticate('google', { failureRedirect: "/login" }),
   function(req, res) {
     // Successful authentication, redirect to secrets.
@@ -101,13 +101,17 @@ app.get("/register",function(req,res){
     res.render("register");
 });
 app.get("/secrets",function(req,res){
-  User.find({ "secret": { $ne: null } })
-  .then(foundUsers => {
-    res.render("secrets", { userWithSecrets: foundUsers });
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    if (req.isAuthenticated()){
+      User.find({ "secret": { $ne: null } })
+      .then(foundUsers => {
+        res.render("secrets", { userWithSecrets: foundUsers });
+      })
+    .catch(err => {
+      console.log(err);
+    });
+    }else {
+    res.redirect("/login");
+    }
 });
 
 
