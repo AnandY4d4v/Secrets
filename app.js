@@ -29,7 +29,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://127.0.0.1:27017/userDB");
+mongoose.connect(process.env.MONGO);
 const db = mongoose.connection;
 db.on("error", err => {
   console.error("Error connecting to MongoDB:", err.message);
