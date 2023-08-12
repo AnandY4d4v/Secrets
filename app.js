@@ -138,7 +138,7 @@ app.post("/submit", function(req, res) {
 
   // Once the user is authenticated and their session gets saved, their user details are saved to req.user.
   // console.log(req.user.id);
-  console.log(req.user);
+  //console.log(req.user);
 
   User.findById(req.user.id)
     .then(foundUser => {
